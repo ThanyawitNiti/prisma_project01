@@ -139,16 +139,27 @@ const run = async () => {
     //     }
     // })
     //ถ้ามี update ถ้าไม่มี create 
-const result = await prisma.user.upsert({
-    create:{
-        username:'ann',
-        password:'1234556'
-    },
-    update:{
-        password:'123456'
-    },
-    where:{
-        username:'ann'
+// const result = await prisma.user.upsert({
+//     create:{
+//         username:'ann',
+//         password:'1234556'
+//     },
+//     update:{
+//         password:'123456'
+//     },
+//     where:{
+//         username:'ann'
+//     }
+// })
+//Delete
+// const result = await prisma.user.delete({
+//     where :{
+//         username:'ann'
+//     }
+// })
+const result = await prisma.transaction.deleteMany({
+    where :{
+        payee:'7-11'
     }
 })
 
