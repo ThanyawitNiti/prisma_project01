@@ -12,7 +12,7 @@ const run = async () => {
     //         password: '123456'
     //             } 
     //     });
-
+//createMany ใช้ nested ไม่ได้
     // const result = await prisma.category.createMany({
     //     //return { count :2 } means insert 2 unit
     //     data:[
@@ -97,28 +97,62 @@ const run = async () => {
     //         transactions: true
     //     }
     // })
-    const result = await prisma.user.create({
-        data:{
-            username:'manuel',
-            password:'1234',
-            transactions:{
-                create:[
-                        { payee : '7-11' , 
-                          amount:68 ,
-                          date: new Date('2030-09-04'), 
-                          category:{
-                            create:{
-                                name:'Beverage'
-                            }
-                          }
-                        }
-                ]
-            }
-        },
-        include:{
-            transactions: true
-        }
-    })
+    // const result = await prisma.user.create({
+    //     data:{
+    //         username:'manuel',
+    //         password:'1234',
+    //         transactions:{
+    //             create:{ 
+    //                 payee : '7-11' , 
+    //                 amount:68 ,
+    //                 date: new Date('2030-09-04'), 
+    //                 category:{
+    //                     create:{
+    //                         name:'Beverage'
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     include:{
+    //         transactions: true
+    //     }
+    // })
+    // UPDATE 
+    // const result = await prisma.user.update({ //ได้อันเดียว
+    //     data:{
+    //         password:'654321'
+    //     },
+    //     where:{
+    //         id:1
+    //     }
+    // })
+    // Update many 
+    // const result = await prisma.user.updateMany({
+    //     data:{
+    //         password:'098765'
+    //     },
+    //     where:{
+    //         username:{
+    //             startsWith:'J'
+    //         }
+    //     }
+    // })
+    //ถ้ามี update ถ้าไม่มี create 
+const result = await prisma.user.upsert({
+    create:{
+        username:'ann',
+        password:'1234556'
+    },
+    update:{
+        password:'123456'
+    },
+    where:{
+        username:'ann'
+    }
+})
+
+
     console.log(result);
   } catch (err) {
     console.log(err);
